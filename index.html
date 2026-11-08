@@ -135,8 +135,8 @@ var wl='https://wa.me/'+WA+'?text='+encodeURIComponent(tx);
 function fin(){$('tn').textContent=nombre;$('tt').textContent=fm(tt);$('te').textContent=en;$('lk').href=wl;S={};K=[];ES=-1;$('nt').value='';$('nc').textContent='0/250';drawE();render();oc(0);$('ok').showModal()}
 if(!SCRIPT_URL){window.open(wl,'_blank','noopener');fin();return}
 b.disabled=true;b.textContent='Enviando…';
-fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(ped)}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;fin()})
-.catch(function(){er.innerHTML='No pudimos registrar tu pedido. Escríbenos por <a href="'+wl+'" target="_blank" rel="noopener" style="color:var(--br)">WhatsApp</a> y lo anotamos a mano.'}).finally(function(){b.textContent='Enviar pedido';render()})}
+fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(ped)}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error||'respuesta inválida');fin()})
+.catch(function(x){console.error('Pedido no registrado:',x);er.innerHTML='No pudimos registrar tu pedido. Escríbenos por <a href="'+wl+'" target="_blank" rel="noopener" style="color:var(--br)">WhatsApp</a> y lo anotamos a mano.<br><small style="font-weight:400">Detalle: '+String(x&&x.message||x).replace(/</g,'&lt;').slice(0,160)+'</small>'}).finally(function(){b.textContent='Enviar pedido';render()})}
 render();
 
 /* ===== mejoras interactivas ===== */
